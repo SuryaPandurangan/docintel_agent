@@ -1,0 +1,11 @@
+streamlit
+langchain
+google-generativeai
+PyMuPDF               # for PDF reading
+python-docx           # for DOCX
+python-dotenv
+tiktoken              # if OpenAI embedding
+faiss-cpu             # or use lancedb
+pytesseract
+pdf2image
+Pillow
