@@ -1,33 +1,36 @@
-# 🧠 DocIntel Agent – Multi-Document Q&A with LLMs
+# 🧠 DocIntel Agent – Gemini-Powered Multi-Document Q&A with Evaluation
 
-A powerful GenAI-based document assistant that can read, chunk, embed, and answer questions across multiple PDF/DOCX files. Built with **LangChain**, **Gemini Pro**, **HuggingFace Embeddings**, and **Streamlit**.
+A fully integrated GenAI document assistant and **RAG evaluation framework**, powered by **LangChain**, **Gemini Pro**, **HuggingFace Embeddings**, and **Streamlit**.
 
-> “Upload documents. Ask questions. Get answers with sources.”
+> “Upload docs → Ask Questions → Get Answers + Evaluation”
 
 ---
 
 ## 🚀 Features
 
-- 📄 Upload multiple PDF & DOCX documents
-- 🧠 Extract text, OCR fallback for scanned docs
-- 🧩 Chunk + embed using `all-MiniLM-L6-v2` (local)
-- 🔍 RAG pipeline with Gemini LLM
-- 🤖 Ask complex questions and get reliable answers
-- 📚 See source snippets for each response
-- 🖥️ Easy-to-use Streamlit UI
+- 📄 Upload multiple PDF or DOCX files
+- 🧠 Extract, chunk, and embed using local `MiniLM` model
+- 🔍 RAG pipeline using Gemini 2.5 Flash LLM
+- 💬 Memory: Keep Q&A history with full context trace
+- 📚 Show **source snippets** for every answer
+- 📈 **LLM-as-Critic** evaluation (Relevance, Groundedness, Fluency) using Gemini itself
+- 📊 **Dashboard** for end-to-end RAG evaluation:
+  - Retrieval: `Recall@K`, `Precision@K`, `MRR`, `Hit@K`
+  - Generation: `BLEU`, `ROUGE`, `BERTScore`
+  - Diagnostics: `Latency`, `Coverage`, `Robustness`
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Component    | Tool                                  |
-|--------------|----------------------------------------|
-| Frontend     | Streamlit                              |
-| Backend      | Python + LangChain                     |
-| LLM          | Gemini Pro (via `langchain-google-genai`) |
-| Embedding    | HuggingFace (`all-MiniLM-L6-v2`)       |
-| Vector Store | FAISS                                  |
-| OCR          | Tesseract + pdf2image (for scanned PDFs) |
+| Layer         | Tool                                       |
+|---------------|--------------------------------------------|
+| UI            | Streamlit                                 |
+| LLM           | Gemini 2.5 Flash (via `langchain-google-genai`) |
+| Embeddings    | HuggingFace `all-MiniLM-L6-v2`             |
+| Vector Store  | FAISS                                      |
+| Evaluation    | HuggingFace `evaluate`, Gemini as critic   |
+| File Parsing  | PyMuPDF, Docx2txt                          |
 
 ---
 
@@ -36,10 +39,8 @@ A powerful GenAI-based document assistant that can read, chunk, embed, and answe
 ```bash
 git clone https://github.com/your-username/docintel-agent.git
 cd docintel-agent
+
 python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
 pip install -r requirements.txt
-
-GOOGLE_API_KEY=your_gemini_api_key_here
-
-streamlit run app.py
